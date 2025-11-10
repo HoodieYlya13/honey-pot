@@ -1,7 +1,7 @@
 export async function POST(request: Request) {
   const { login, password } = await request.json();
 
-  if (login === "admin" && password === "password123") {
+  if (login === "admin" && password === "password123")
     return Response.json(
       {
         success: true,
@@ -10,10 +10,9 @@ export async function POST(request: Request) {
       },
       { status: 200 }
     );
-  } else {
+  else
     return Response.json(
       { success: false, message: "Invalid credentials" },
       { status: 401 }
     );
-  }
 }
