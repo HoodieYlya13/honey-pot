@@ -6,6 +6,7 @@ import { z } from "zod";
 import Input from "../Input";
 import SubmitButton from "../SubmitButton";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const loginSchema = z.object({
   login: z.string().min(3, "Login must be at least 3 characters"),
@@ -15,7 +16,7 @@ const loginSchema = z.object({
 type LoginFormInputs = z.infer<typeof loginSchema>;
 
 export default function Login() {
-  const [successMessage, setSuccessMessage] = useState("");
+  const router = useRouter();
   const [errorMessage, setErrorMessage] = useState("");
 
   const {
@@ -27,7 +28,6 @@ export default function Login() {
   });
 
   const onSubmit = async (data: LoginFormInputs) => {
-    setSuccessMessage("");
     setErrorMessage("");
     try {
       const response = await fetch("/api/login", {
@@ -37,7 +37,7 @@ export default function Login() {
         },
         body: JSON.stringify(data),
       });
-      if (response.ok) setSuccessMessage("Login successful!");
+      if (response.ok) return router.push("/admin");
       else {
         const result = await response.json();
         setErrorMessage(result.message);
@@ -77,7 +77,6 @@ export default function Login() {
           }
           label="Sign In"
           errorMessage={errorMessage}
-          successMessage={successMessage}
         />
       </form>
     </div>
