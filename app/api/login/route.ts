@@ -1,7 +1,7 @@
 export async function POST(request: Request) {
   const { login, password } = await request.json();
 
-  if (login === "admin" && password === "password123")
+  if (login === "admin" && password === "admin")
     return Response.json(
       {
         success: true,
