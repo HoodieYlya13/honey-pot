@@ -30,7 +30,7 @@ export default function Login() {
   const onSubmit = async (data: LoginFormInputs) => {
     setErrorMessage("");
     try {
-      const response = await fetch("/api/login", {
+      const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

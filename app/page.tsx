@@ -1,16 +1,11 @@
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Login from "./components/Pages/Login";
 import PageBuilder from "./components/PageBuilder";
+import { isAdminSession } from "@/lib/cookies";
 
 export default async function Home() {
-  const cookieStore = await cookies();
-  const session = cookieStore.get("session_token");
-  if (
-    session?.value ===
-    "T1lAW9yM9bKzq0xKbh0zbc4pWc7MM6sXx4J3g2MVAWzy0qRAlDliE7AVR4aUUjrw"
-  )
-    redirect("/admin");
+  const adminSession = await isAdminSession();
+  if (adminSession) redirect("/admin");
 
   return (
     <PageBuilder showAuroraBackground={true}>

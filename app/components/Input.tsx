@@ -73,7 +73,7 @@ export default function Input({
           />
         )}
       </div>
-      {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
+      {error && <p className="ml-1 sm:ml-2 mt-1 text-xs sm:text-sm md:text-base text-red-500">{error}</p>}
     </div>
   );
 }
