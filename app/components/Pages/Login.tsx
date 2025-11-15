@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Input from "../Input";
-import SubmitButton from "../SubmitButton";
+import Button from "../Button";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -50,7 +50,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-4">
+    <div className="flex flex-1 w-full items-center justify-center p-4">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col liquid-glass p-8 sm:p-10 md:p-12 rounded-4xl sm:rounded-[3rem] md:rounded-[3.5rem] shadow-2xl w-full max-w-md sm:max-w-lg md:max-w-xl gap-6 z-10 transition-all duration-300 ease-in-out"
@@ -69,7 +69,8 @@ export default function Login() {
           {...register("password")}
           error={errors.password?.message}
         />
-        <SubmitButton
+        <Button
+          type="submit"
           disabled={
             isSubmitting ||
             Object.keys(errors).length > 0 ||

@@ -118,7 +118,7 @@ interface AuroraProps {
 }
 
 export default function Aurora(props: AuroraProps) {
-  const { colorStops = ['#5227FF', '#7cff67', '#5227FF'], amplitude = 1.0, blend = 0.5 } = props;
+  const { colorStops = ['#5227FF', '#7cff67', '#5227FF'], amplitude = 1.0, blend = 1.0 } = props;
   const propsRef = useRef<AuroraProps>(props);
   propsRef.current = props;
 
@@ -144,9 +144,7 @@ export default function Aurora(props: AuroraProps) {
       const width = ctn.offsetWidth;
       const height = ctn.offsetHeight;
       renderer.setSize(width, height);
-      if (program) {
-        program.uniforms.uResolution.value = [width, height];
-      }
+      if (program) program.uniforms.uResolution.value = [width, height];
     }
     window.addEventListener('resize', resize);
 
@@ -198,12 +196,15 @@ export default function Aurora(props: AuroraProps) {
     return () => {
       cancelAnimationFrame(animateId);
       window.removeEventListener('resize', resize);
-      if (ctn && gl.canvas.parentNode === ctn) {
-        ctn.removeChild(gl.canvas);
-      }
+      if (ctn && gl.canvas.parentNode === ctn) ctn.removeChild(gl.canvas);
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
   }, [amplitude, blend , colorStops]);
 
-  return <div ref={ctnDom} className="fixed w-full aspect-square" />;
+  return (
+    <div
+      ref={ctnDom}
+      className="fixed w-(--size) aspect-square left-1/2 -translate-x-1/2"
+    />
+  );
 }

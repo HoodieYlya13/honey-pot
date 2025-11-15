@@ -15,8 +15,8 @@ export default function PageBuilder({
   showAuroraBackground = false,
 }: PageBuilderProps) {
   return (
-    <div className="flex flex-col bg-gray-900 text-white text-xl sm:text-2xl md:text-3xl min-h-screen relative overflow-hidden">
-      {showAuroraBackground && <Aurora />}
+    <div className="flex flex-col bg-gray-900 text-white text-xl sm:text-2xl md:text-3xl relative overflow-hidden">
+      {showAuroraBackground && <Aurora speed={0.3} />}
 
       <div className="flex flex-col min-h-screen z-10">
         <main

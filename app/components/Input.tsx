@@ -54,12 +54,12 @@ export default function Input({
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div>
+    <>
       <div className="relative input-focus-glow">
         <input
+          {...rest}
           id={id}
           type={type !== "password" ? type : showPassword ? "text" : "password"}
-          {...rest}
           placeholder={label}
           className={clsx(
             "liquid-glass mt-1 block w-full rounded-2xl sm:rounded-3xl md:rounded-[1.75rem] shadow-sm placeholder-gray-400 outline-none p-2 sm:p-3 md:p-4 transition-all duration-300 ease-in-out",
@@ -74,6 +74,6 @@ export default function Input({
         )}
       </div>
       {error && <p className="ml-1 sm:ml-2 mt-1 text-xs sm:text-sm md:text-base text-red-500">{error}</p>}
-    </div>
+    </>
   );
 }
