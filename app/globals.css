@@ -4,6 +4,11 @@
   --size: max(100vw, 100vh);
 }
 
+html, body {
+  overscroll-behavior: none;
+  background-color: black;
+}
+
 .input-focus-glow:focus-within::after {
   opacity: 1;
 }
