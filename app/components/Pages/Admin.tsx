@@ -1,8 +1,6 @@
 "use client";
 
-import { logout } from "@/lib/logout";
 import { useState, useEffect } from "react";
-import Button from "../Button";
 
 export default function AdminPage() {
   const [output, setOutput] = useState("");
@@ -35,8 +33,6 @@ export default function AdminPage() {
 
   return (
     <div>
-      <Button onClick={logout} label="Logout" />
-
       {loading ? (
         <p className="text-gray-400 italic">Connecting to internal API…</p>
       ) : (

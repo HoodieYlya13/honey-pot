@@ -1,21 +1,26 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import clsx from "clsx";
 
 interface VisibilityButtonProps {
   showPassword: boolean;
   setShowPassword: React.Dispatch<React.SetStateAction<boolean>>;
-};
+  inputRef: React.RefObject<HTMLInputElement | null>;
+}
 
-function VisibilityButton({
-  showPassword,
-  setShowPassword,
-}: VisibilityButtonProps) {
+function VisibilityButton({ showPassword, setShowPassword, inputRef }: VisibilityButtonProps) {
   return (
     <button
       type="button"
-      onMouseDown={() => setShowPassword(true)}
+      onMouseDown={(e) => {
+        e.preventDefault();
+        setShowPassword(true);
+        inputRef.current?.focus();
+      }}
       onMouseUp={() => setShowPassword(false)}
-      onTouchStart={() => setShowPassword(true)}
+      onTouchStart={() => {
+        setShowPassword(true);
+        inputRef.current?.focus();
+      }}
       onTouchEnd={() => setShowPassword(false)}
       onContextMenu={(e) => e.preventDefault()}
       className="absolute right-2 sm:right-3 md:right-4 top-1/2 transform -translate-y-1/2 text-gray-300 hover:text-white opacity-80 hover:opacity-100 transition-all duration-300 ease-in-out hover:scale-110 cursor-pointer"
@@ -23,7 +28,7 @@ function VisibilityButton({
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7"
+        className="size-5 sm:size-6 md:size-7"
         viewBox="0 -960 960 960"
         fill="currentColor"
       >
@@ -52,6 +57,7 @@ export default function Input({
   ...rest
 }: InputProps) {
   const [showPassword, setShowPassword] = useState(false);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   return (
     <>
@@ -62,18 +68,25 @@ export default function Input({
           type={type !== "password" ? type : showPassword ? "text" : "password"}
           placeholder={label}
           className={clsx(
-            "liquid-glass mt-1 block w-full rounded-2xl sm:rounded-3xl md:rounded-[1.75rem] shadow-sm placeholder-gray-400 outline-none p-2 sm:p-3 md:p-4 transition-all duration-300 ease-in-out",
-            { "pr-10": type === "password", "border-red-500": error }
+            "liquid-glass-backdrop liquid-glass-background border block w-full rounded-2xl sm:rounded-3xl md:rounded-[1.75rem] shadow-sm placeholder-gray-400 outline-none p-2 sm:p-3 md:p-4 transition-all duration-300 ease-in-out focus:ring focus:ring-white focus:shadow-white hover:ring hover:ring-white hover:shadow-white",
+            error ? "border-red-500" : "liquid-glass-border-color",
+            { "pr-10": type === "password" }
           )}
+          ref={inputRef}
         />
         {type === "password" && (
           <VisibilityButton
             showPassword={showPassword}
             setShowPassword={setShowPassword}
+            inputRef={inputRef}
           />
         )}
       </div>
-      {error && <p className="ml-1 sm:ml-2 mt-1 text-xs sm:text-sm md:text-base text-red-500">{error}</p>}
+      {error && (
+        <p className="ml-1 sm:ml-2 mt-1 text-xs sm:text-sm md:text-base text-red-500">
+          {error}
+        </p>
+      )}
     </>
   );
 }
