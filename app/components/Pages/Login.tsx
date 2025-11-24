@@ -74,7 +74,8 @@ export default function Login() {
           disabled={
             isSubmitting ||
             Object.keys(errors).length > 0 ||
-            errorMessage !== ""
+            errorMessage !== "" &&
+            errorMessage !== "Invalid credentials"
           }
           label="Sign In"
           errorMessage={errorMessage}

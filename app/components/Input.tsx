@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import React, { forwardRef, useRef, useState } from "react";
 import clsx from "clsx";
 
 interface VisibilityButtonProps {
@@ -49,15 +49,18 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   error?: string;
 };
 
-export default function Input({
-  id,
-  label,
-  type,
-  error,
-  ...rest
-}: InputProps) {
+const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
+  { id, label, type, error, ...rest },
+  ref
+) {
   const [showPassword, setShowPassword] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const setRefs = (el: HTMLInputElement) => {
+    inputRef.current = el;
+    if (typeof ref === "function") ref(el);
+    else if (ref) (ref as React.MutableRefObject<HTMLInputElement | null>).current = el;
+  };
 
   return (
     <>
@@ -65,6 +68,7 @@ export default function Input({
         <input
           {...rest}
           id={id}
+          ref={setRefs}
           type={type !== "password" ? type : showPassword ? "text" : "password"}
           placeholder={label}
           className={clsx(
@@ -72,7 +76,6 @@ export default function Input({
             error ? "border-red-500" : "liquid-glass-border-color",
             { "pr-10": type === "password" }
           )}
-          ref={inputRef}
         />
         {type === "password" && (
           <VisibilityButton
@@ -89,4 +92,5 @@ export default function Input({
       )}
     </>
   );
-}
+});
+export default Input;
