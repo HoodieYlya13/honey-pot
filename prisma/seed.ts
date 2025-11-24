@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { faker } from "@faker-js/faker";
+import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
@@ -11,24 +12,15 @@ async function main() {
     update: {},
     create: {
       username: "admin",
-      password: "admin",
+      password: bcrypt.hashSync("admin", 10),
       role: "ADMIN",
     },
   });
   console.log("✔ Admin created");
 
-  const fakeUsers = Array.from({ length: 200 }).map(() => ({
-    username: faker.internet.username(),
-    password: faker.internet.password(),
-    role: faker.helpers.arrayElement(["USER", "MANAGER"]),
-  }));
-
-  await prisma.user.createMany({ data: fakeUsers });
-  console.log("✔ Fake users created:", fakeUsers.length);
-
   const confidentialityLevels = ["CONFIDENTIAL", "RESTRICTED", "TOP SECRET"];
 
-  const fakeDocuments = Array.from({ length: 150 }).map(() => ({
+  const fakeDocuments = Array.from({ length: 147 }).map(() => ({
     title: faker.company.catchPhrase(),
     content: faker.lorem.paragraphs(3),
     confidentialityLevel: faker.helpers.arrayElement(confidentialityLevels),
@@ -41,7 +33,7 @@ async function main() {
     select: { id: true },
   });
 
-  const fakeAttempts = Array.from({ length: 300 }).map(() => ({
+  const fakeAttempts = Array.from({ length: 312 }).map(() => ({
     userId: faker.helpers.arrayElement(allUsers).id,
     ipAddress: faker.internet.ipv4(),
     userAgent: faker.internet.userAgent(),
