@@ -6,17 +6,19 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - DATABASE_URL=postgresql://postgres:password@db:5432/honeypot
+      DATABASE_URL: postgresql://postgres:password@db:5432/honeypot
+      NODE_ENV: production
     depends_on:
       - db
     command: sh -c "npx prisma generate && npx prisma db push && npm run start"
 
   db:
     image: postgres:15-alpine
+    restart: always
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=honeypot
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: honeypot
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
