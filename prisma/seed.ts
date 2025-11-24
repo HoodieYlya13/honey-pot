@@ -26,11 +26,7 @@ async function main() {
   await prisma.user.createMany({ data: fakeUsers });
   console.log("✔ Fake users created:", fakeUsers.length);
 
-  const confidentialityLevels = [
-    "CONFIDENTIAL",
-    "RESTRICTED",
-    "TOP SECRET",
-  ];
+  const confidentialityLevels = ["CONFIDENTIAL", "RESTRICTED", "TOP SECRET"];
 
   const fakeDocuments = Array.from({ length: 150 }).map(() => ({
     title: faker.company.catchPhrase(),
