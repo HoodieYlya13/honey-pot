@@ -64,7 +64,7 @@ export default function AdminPage() {
 
   return (
     <div className="p-8 space-y-8">
-      <div className="mt-8">
+      <div className="mt-2">
         {loading ? (
           <p className="text-gray-400 italic animate-pulse">Connecting to internal API…</p>
         ) : (
