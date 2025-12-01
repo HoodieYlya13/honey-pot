@@ -10,8 +10,14 @@ services:
       NODE_ENV: production
     depends_on:
       - db
-    command: sh -c "npx prisma generate && npx prisma db push && npm run start"
-
+    command: >
+      sh -c "
+        echo '⏳ Waiting for DB...' &&
+        npx prisma generate &&
+        npx prisma db push &&
+        npm run seed &&
+        npm run start
+      "
   db:
     image: postgres:15-alpine
     restart: always
