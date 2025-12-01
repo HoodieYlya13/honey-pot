@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "eslint",
     "generate": "prisma generate",
-    "migrate": "prisma migrate dev"
+    "migrate": "prisma migrate dev",
+    "seed": "npx prisma db seed"
   },
   "dependencies": {
     "@faker-js/faker": "^10.1.0",
@@ -33,6 +34,7 @@
     "@types/pg": "^8.15.6",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "baseline-browser-mapping": "^2.8.32",
     "dotenv": "^17.2.3",
     "eslint": "^9",
     "eslint-config-next": "16.0.1",
