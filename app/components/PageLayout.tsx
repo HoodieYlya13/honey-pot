@@ -2,17 +2,17 @@ import clsx from "clsx";
 import Aurora from "./Aurora";
 import NavBar from "./NavBar";
 
-interface PageBuilderProps {
+interface PageLayoutProps {
   children: React.ReactNode;
   padding?: boolean;
   showAuroraBackground?: boolean;
 }
 
-export default function PageBuilder({
+export default function PageLayout({
   children,
   padding = true,
   showAuroraBackground = false,
-}: PageBuilderProps) {
+}: PageLayoutProps) {
   return (
     <div className="flex flex-col bg-gray-900 text-white text-xl sm:text-2xl md:text-3xl relative overflow-hidden">
       <NavBar />

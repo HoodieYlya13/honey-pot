@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import Login from "./components/Pages/Login";
-import PageBuilder from "./components/PageBuilder";
+import PageLayout from "./components/PageLayout";
 import { isAdminSession } from "@/lib/cookies";
 
 export default async function Home() {
@@ -8,8 +8,8 @@ export default async function Home() {
   if (adminSession) redirect("/admin");
 
   return (
-    <PageBuilder showAuroraBackground={true}>
+    <PageLayout showAuroraBackground={true}>
       <Login />
-    </PageBuilder>
+    </PageLayout>
   );
 }
