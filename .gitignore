@@ -40,5 +40,14 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### VS Code ###
+.vscode/
+
 # honey-pot logs
 /logs/honeypot.log
