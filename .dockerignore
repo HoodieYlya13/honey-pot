@@ -6,8 +6,6 @@ npm-debug.log
 .github
 .DS_Store
 *.md
-.env*
-!.env.example
 Dockerfile
 .gitignore
 .idea
