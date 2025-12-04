@@ -7,7 +7,28 @@ interface VisibilityButtonProps {
   inputRef: React.RefObject<HTMLInputElement | null>;
 }
 
-function VisibilityButton({ showPassword, setShowPassword, inputRef }: VisibilityButtonProps) {
+function VisibilityButton({
+  showPassword,
+  setShowPassword,
+  inputRef,
+}: VisibilityButtonProps) {
+  const restoreCursorPosition = () => {
+    const input = inputRef.current;
+    if (!input) return setShowPassword(false);
+
+    const position = input.selectionStart;
+
+    setShowPassword(false);
+    setTimeout(() => {
+      try {
+        if (position !== null) input.setSelectionRange(position, position);
+        input.focus();
+      } catch (e) {
+        console.error(e);
+      }
+    }, 0);
+  };
+
   return (
     <button
       type="button"
@@ -16,12 +37,12 @@ function VisibilityButton({ showPassword, setShowPassword, inputRef }: Visibilit
         setShowPassword(true);
         inputRef.current?.focus();
       }}
-      onMouseUp={() => setShowPassword(false)}
+      onMouseUp={restoreCursorPosition}
       onTouchStart={() => {
         setShowPassword(true);
         inputRef.current?.focus();
       }}
-      onTouchEnd={() => setShowPassword(false)}
+      onTouchEnd={restoreCursorPosition}
       onContextMenu={(e) => e.preventDefault()}
       className="absolute right-2 sm:right-3 md:right-4 top-1/2 transform -translate-y-1/2 text-gray-300 hover:text-white opacity-80 hover:opacity-100 transition-all duration-300 ease-in-out hover:scale-110 cursor-pointer"
       tabIndex={-1}
