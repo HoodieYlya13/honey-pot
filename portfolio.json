@@ -60,4 +60,3 @@
   },
   "lessons_learned": "- **The Art of Deception in Cyber Defense:** Designing a honeypot taught me that creating realistic, engaging data (lures) and artificial latency is just as important as the security vulnerability itself.\n\n- **Container Security and DevSecOps:** Exposing shell commands, even in a simulated workspace, demands absolute isolation. Utilizing Docker Compose to restrict network routing, volume mounts, and container privilege levels is critical to protecting the underlying infrastructure.\n\n- **Telemetry and Forensics:** Gathering structured logs of malicious payloads reveals deep insights into the credentials and dictionaries used by modern hackers.\n\n- **Simplicity in Attack Surface Design:** Building intentional vulnerabilities in an application without introducing accidental secondary weaknesses requires precise architectural design."
 }
-
