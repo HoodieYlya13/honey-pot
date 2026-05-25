@@ -33,7 +33,7 @@ jobs:
       - name: Fetch Central Ingestion Script
         run: |
           echo "📥 Fetching master pipeline script from ylya-bot..."
-          curl -sS https://raw.githubusercontent.com/HoodieYlya13/ylya-bot/main/sync-portfolio.js -o sync-portfolio.mjs
+          curl -sS https://raw.githubusercontent.com/HoodieYlya13/ylya-bot/main/sync-portfolio.mjs -o sync-portfolio.mjs
 
       - name: Install Runtime Database & AI SDKs
         run: npm install @supabase/supabase-js @google/genai
